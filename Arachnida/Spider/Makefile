@@ -23,7 +23,7 @@ INC_FILES	=
 INC			=	$(addprefix $(INC_PATH), $(INC_FILES))
 
 #    Files
-SRCS_PATH = .
+SRCS_PATH = src
 
 FILES = spider.cpp
 
