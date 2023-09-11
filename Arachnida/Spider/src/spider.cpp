@@ -98,7 +98,9 @@ int ft_get_img(t_data data, std::string file)
 
         // check if full or partial path
         if (line.compare(0, 4, "http"))
-            line.insert(0, "/").insert(0, data.url);
+            line.insert(0, data.url);
+            //line.insert(0, "/").insert(0, data.url);
+            
 
         // std::cout << "Ligne lue :" << line << std::endl;
         std::string n_file = line;
@@ -125,12 +127,44 @@ int ft_get_img(t_data data, std::string file)
     return 0;
 }
 
+bool    ft_check_ishostname(std::string &url)
+{
+    size_t  res = url.find('/', url.find_first_not_of('/', url.find('/', 0)));
+
+    if (res == std::string::npos || res == url.size() - 1)
+    {
+        if (res != std::string::npos)
+            std::cout << "type http:///qweasd.com/"<< std::endl;
+        else
+        {
+            url.push_back('/');
+            std::cout << "type http:///qweasd.com"<< std::endl;
+        }
+        return true;
+    }
+    if (url.find_first_not_of('/', res) == std::string::npos)
+    {
+        std::cout << "type http:///qweasd.com////" << std::endl;
+        return true;
+    }
+
+    std::cout << "type http://qweqwe.com///asd" << std::endl;
+
+    return false;
+}
+
 int ft_extract(t_data data, int depth)
 {
     // std::cout << "---------" << std::endl;
     // std::cout << "data.url: " << data.url << std::endl;
     // std::cout << "data.path: " << data.path << std::endl;
     // std::cout << "depth: " << depth << std::endl;
+
+    // check if hostname
+    // -> yes : just concat
+    // -> no : del last /xxxxx.x (after last '/') for url_child and get_img
+    bool ishostname = ft_check_ishostname(data.url);
+    (void)ishostname;
 
     // Replace space with %20
     for (size_t i = 0; i < data.url.size(); i++)
@@ -157,6 +191,15 @@ int ft_extract(t_data data, int depth)
 
     system(cmd_href.c_str());
     system(cmd_imge.c_str());
+
+    std::cout << "Pre:" << data.url << std::endl;
+
+
+    // not hostname del last part
+    if (!ishostname)
+        data.url.erase(data.url.find_last_of('/') + 1);
+
+    std::cout << "Aft:" << data.url << std::endl;
 
     // DL img
     // jpg/jpeg/pnj/gif/bmp
