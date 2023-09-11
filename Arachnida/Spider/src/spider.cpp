@@ -49,6 +49,8 @@ int is_valid_flag(int &i, int argc, char **argv, t_data &data)
                     {
                         i++;
                         data.path = argv[i];
+                        if (data.path.size() - 1 != '/')
+                            data.path.push_back('/');
                     }
                     else
                         data.path = "./data/";
@@ -189,7 +191,8 @@ int ft_extract(t_data data, int depth)
 
     // std::cout << cmd_imge << std::endl;
 
-    system(cmd_href.c_str());
+    if (system(cmd_href.c_str()))
+        ft_error_curl();
     system(cmd_imge.c_str());
 
     std::cout << "Pre:" << data.url << std::endl;
@@ -205,9 +208,15 @@ int ft_extract(t_data data, int depth)
     // jpg/jpeg/pnj/gif/bmp
     ft_get_img(data, file_img);
 
+    // Command delete store file to clear ang get only img
+    std::string del_cmd = "rm -f " + file_href + " " + file_img + " " + page;
+
     // check depth, leave or go deeper
     if (depth >= data.depth)
+    {
+        system(del_cmd.c_str());
         return 0;
+    }
 
     // Go deeper
     // get next link
@@ -227,7 +236,7 @@ int ft_extract(t_data data, int depth)
         // std::cout << line << std::endl;
 
         if (line.compare(0, 4, "http"))
-            line.insert(0, "/").insert(0, data.url);
+            line.insert(0, data.url);
         // std::cout << line << std::endl;
 
 
@@ -239,6 +248,7 @@ int ft_extract(t_data data, int depth)
 
 
     // fin fichier data suppr
+    system(del_cmd.c_str());
     return 0;
 }
 
