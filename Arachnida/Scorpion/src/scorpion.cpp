@@ -1,23 +1,11 @@
 #include "../inc/scorpion.hpp"
+#include <vector>
 
 static void getJPEG(std::ifstream &file) {
     (void)file;
 
-    std::string line;
-    
-    while (std::getline(file, line)) {
-        size_t tmp = line.find('\xFF');
-        if (tmp != std::string::npos)
-        {
-            std::cout << "GG" << std::endl;
-            if (line[tmp + 1] == '\x51')
-            std::cout << "GOT" << std::endl;
 
-        }
-        else
-            std::cout << "NO GG" << std::endl;
-
-    }
+    std::cout << "end\n";
 }  
 
 static bool isBMP(const std::string &filename) {
