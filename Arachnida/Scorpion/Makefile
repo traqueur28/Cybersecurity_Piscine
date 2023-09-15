@@ -25,7 +25,7 @@ INC			=	$(addprefix $(INC_PATH), $(INC_FILES))
 #    Files
 SRCS_PATH = src
 
-FILES = scorpion.cpp
+FILES = scorpion.cpp get_data.cpp
 
 SRCS = $(addprefix $(SRCS_PATH)/, $(FILES))
 
@@ -37,7 +37,7 @@ TEST = tester
 
 CXX = clang++
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -ljpeg -std=c++17 -lexif
 
 RM = rm -rf
 

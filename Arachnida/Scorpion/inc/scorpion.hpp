@@ -6,12 +6,10 @@
 #include <cstdlib>
 #include <stdio.h>
 #include <ctype.h>
+#include <jpeglib.h>
 
-typedef struct   s_data
-{
-    std::string url;
-    std::string path;
-    int depth;
-}   t_data;
+//  src/get_data.cpp
+    void    get_data(const std::string &filename, std::ifstream &file, int type);
+
 
 #endif
