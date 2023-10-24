@@ -1,0 +1,9 @@
+The file img/jpeg_jpg/image_0.jpg is valid JPEG.
+-1 GOT EXIF22
+width  : e1 pixels
+height : 4b pixels
+components : 3 color(s)
+densityX: 1 px
+densityY: 1 px
+end
+ -------- 

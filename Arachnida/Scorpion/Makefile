@@ -35,9 +35,11 @@ NAME = scorpion
 
 TEST = tester
 
-CXX = clang++
+CXX = c++
 
-CFLAGS = -Wall -Wextra -Werror -ljpeg -std=c++17 -lexif
+CFLAGS = -Wall -Wextra -Werror -std=c++17
+
+LIBS = -ljpeg -lpng -lgif -lexiv2
 
 RM = rm -rf
 
@@ -50,7 +52,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS_PATH) $(OBJS)
 	@ echo "$(BLUE)\n         ***Make $(NAME) ***\n$(END)"
-	$(HIDE) $(CXX) $(CFLAGS) $(OBJS) -o $(NAME)
+	$(HIDE) $(CXX) $(CFLAGS) $(OBJS) -o $(NAME) $(LIBS)
 	@ echo "$(GREEN)\n        ---$(NAME) created ---\n$(END)"
 
 $(OBJS_PATH):
